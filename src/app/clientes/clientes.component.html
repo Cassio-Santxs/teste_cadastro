@@ -1,0 +1,127 @@
+<div class="p-5 main-container rounded">
+    <div class="container shadow p-5 rounded">
+        <div class="p-5 border border-light">
+            <div id="cadastro">
+                <div>
+                    <div [hidden]="showForm == 0" class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="">Cadastro de clientes</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form  #f="ngForm" [formGroup]="formulario" (ngSubmit)="CadastrarCliente()">
+                                <div class="container">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="form-group col py-3 px-4">
+                                                <h6>Tipo de cliente</h6>
+                                                <select class="col-2 p-1 my-1" id="tipoDeCliente" aria-label="Floating label select example" (change)="onChange($event)" required formControlName="tipoDeCliente">
+                                                    <option value="fisica">Fisica</option>
+                                                    <option value="juridica">Juridica</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-7 p-2">
+                                            <div class="form-group">
+                                                <input type="number" class="form-control form-control-sm" 
+                                                placeholder="Documento (CNPJ/CPF)" formControlName="documento" required>
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-7 p-2">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-sm" 
+                                                placeholder="Nome do cliente" formControlName="nomeRazaoSocial"  required>
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-7 p-2" >
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-sm" *ngIf="selectedType == 'juridica'" 
+                                                placeholder="Nome Fantasia" formControlName="nomeFantasia">
+                                            </div>
+                                        </div>
+
+                                        <h6 class="col px-2 py-2">Contato</h6>
+
+                                        <div class="col-7 p-2">
+                                            <div class="form-group">
+                                                <input type="tel" class="form-control form-control-sm" 
+                                                placeholder="Telefone" formControlName="telefone">
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-7 p-2">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control form-control-sm" 
+                                                placeholder="E-mail" formControlName="email" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <h6 class="col px-2 mt-3">Endereço</h6>
+
+                                        <div class="col-7 p-2 mt-4">
+                                            <div class="form-group">
+                                                <input #cep id="cep" type="number" class="form-control form-control-sm" 
+                                                placeholder="CEP" formControlName="cep" ng-model="cliente.cep" (blur)="consultaCep(cep.value, f)">
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-7 p-2">
+                                            <div class="form-group">
+                                                <input id="endereco" name="endereco" ng-model="cliente.endereco" type="text" class="form-control form-control-sm" 
+                                                placeholder="Endereço" formControlName="endereco">
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-7 p-2">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-sm" 
+                                                placeholder="Bairro" formControlName="bairro">
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-7 p-2">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-sm" 
+                                                placeholder="Cidade" formControlName="cidade">
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-3 p-2">
+                                            <button (click)="showForm = 0" type="submit" class="btn btn-success mb-5">Salvar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" [hidden]="showForm == 1">
+                <button (click)="showForm = 1" type="button" class="btn btn-warning px-5 py-2">
+                    Novo
+                </button>
+                <h5 class="row mt-5">Listagem de clientes</h5>
+                <div class="pt-4 row" >
+                    <table class="">
+                        <thead class="thead-dark mt-2 p-4">
+                            <th class="border border-dark p-2">Código</th>
+                            <th class="border border-dark p-2">Nome</th>
+                            <th class="border border-dark p-2">Endereço</th>
+                            <th class="border border-dark p-2">E-mail</th>
+                        </thead>
+
+                        <tbody *ngFor ="let cliente of clientes">
+                            <td class="border border-dark p-2">{{cliente.clienteId}}</td>
+                            <td class="border border-dark p-2">{{cliente.nomeRazaoSocial}}</td>
+                            <td class="border border-dark p-2">{{cliente.endereco}}</td>
+                            <td class="border border-dark p-2">{{cliente.email}}</td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
